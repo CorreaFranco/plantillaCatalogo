@@ -14,10 +14,9 @@ function Home() {
 
   useEffect(() => {
     axios.get("/products.json")
-       .then((res) => setProducts(res.data))
-       .catch((err) => console.log(err));
+      .then((res) => setProducts(res.data))
+      .catch((err) => console.log(err));
   }, []);
- 
 
   return (
     <>

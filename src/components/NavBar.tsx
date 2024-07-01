@@ -1,25 +1,32 @@
-import Logo from "./../assets/tiendamia-logo.svg"
-
+import Logo from "./../assets/tiendamia-logo.svg";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import NavButton from "./NavButton";
 import { Link } from "react-router-dom";
+import productsActions from "../store/actions/products";
+
+const { captureText } = productsActions;
 
 export default function NavBar() {
+  const text = useRef();
+  const dispatch = useDispatch();
+  const setText = () => {
+    dispatch(captureText({ text: text.current.value }));
+  };
+
   return (
     <header className="w-full min-h-[150px] bg-[#ff6dc6] p-[20px 20px 0 20px] flex flex-col items-center">
-      <div className="w-full flex flex-col justify-between items-center flex-grow 
+      <div
+        className="w-full flex flex-col justify-between items-center flex-grow 
         md:flex-row
         lg:w-[1024px]
-      ">
+      "
+      >
         <Link
           to="/"
           className="w-full md:w-1/3 flex items-center justify-center md:justify-start flex-grow pt-2 md:p-0"
         >
-          <img
-            className={"h-[50px]"}
-            src={Logo}
-            width="218"
-            alt="Logo store"
-          />
+          <img className={"h-[50px]"} src={Logo} width="218" alt="Logo store" />
         </Link>
         <form className="w-full md:w-1/3 flex items-center flex-grow justify-center py-2 md:py-0">
           <input
@@ -27,11 +34,15 @@ export default function NavBar() {
             type="text"
             placeholder="Search"
             id="search"
+            ref={text}
+            onChange={setText}
           />
         </form>
-        <ul className="w-full md:w-1/3 flex items-center flex-grow justify-center pb-2
+        <ul
+          className="w-full md:w-1/3 flex items-center flex-grow justify-center pb-2
           md:justify-end md:py-0
-        ">
+        "
+        >
           <li id="facebook" className="w-[50px] h-[50px] list-none">
             <a className="w-[50px] h-[50px]" href="https://facebook.com">
               <img

@@ -1,8 +1,13 @@
 import Product from "../interfaces/ProductCard";
 import { Link } from "react-router-dom";
+// import { useSelector } from "react-redux";
 
 export default function ProductCard(props: Product) {
   const { id, title, price, color, image } = props;
+
+  // const store = useSelector((store)=> store)
+  // console.log(store)
+
   return (
     <Link
       className="bg-[#0f0f0] text-[#383838] rounded-md w-[250px] m-[15px] no-underline"

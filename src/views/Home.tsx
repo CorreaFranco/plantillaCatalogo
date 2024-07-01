@@ -7,16 +7,29 @@ import NavBar from "../components/NavBar";
 import ProductCard from "../components/ProductCard";
 import Product from "../interfaces/Product";
 
+import { useSelector } from "react-redux";
 
 function Home() {
-
   const [products, setProducts] = useState<Product[]>([]);
+  const text = useSelector((store) => store.products.text);
 
   useEffect(() => {
-    axios.get("/products.json")
-      .then((res) => setProducts(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/products.json");
+        const filterData = res.data.filter((each) =>
+          each.title.toLowerCase().includes(text.toLowerCase())
+        );
+        setProducts(filterData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, [text]);
+
+  console.log(text);
 
   return (
     <>
@@ -25,14 +38,14 @@ function Home() {
       <main className="w-full flex justify-center items-center p-[20px]">
         <div className="w-[1080px] flex flex-wrap justify-between" id="products">
           {products.map((each: Product) => (
-          <ProductCard
-            key={each.id}
-            id={each.id}
-            title={each.title}
-            price={each.price}
-            color={each.colors}
-            image={each.images[0]}
-          />
+            <ProductCard
+              key={each.id}
+              id={each.id}
+              title={each.title}
+              price={each.price}
+              color={each.colors}
+              image={each.images[0]}
+            />
           ))}
         </div>
       </main>

@@ -11,7 +11,7 @@ const productsReducer = createReducer(initialState, (bluid) =>
   bluid.addCase(captureText, (state, action) => {
     const newState = {
       ...state,
-      Text: action.payload.text,
+      text: action.payload.text,
     };
     return newState;
   })

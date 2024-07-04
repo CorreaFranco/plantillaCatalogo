@@ -3,6 +3,6 @@ export default interface ProductCard {
   title: string;
   price: number;
   image: string;
-  color: string;
+  color: Array<string>;
 }
 

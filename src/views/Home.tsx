@@ -14,20 +14,16 @@ function Home() {
   const text = useSelector((store) => store.products.text);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("/products.json");
-        const filterData = res.data.filter((each) =>
-          each.title.toLowerCase().includes(text.toLowerCase())
-        );
-        setProducts(filterData);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
-  }, [text]);
+       axios
+          .get("/products.json")
+          .then((res) => {
+             const filterData = res.data.filter((each) =>
+                each.title.toLowerCase().includes(text.toLowerCase())
+             );
+             setProducts(filterData);
+          })
+          .catch((err) => console.log(err));
+    }, [text]);
 
   console.log(text);
 
@@ -42,7 +38,7 @@ function Home() {
               key={each.id}
               id={each.id}
               title={each.title}
-              price={each.price}
+              price={each.price}            
               color={each.colors}
               image={each.images[0]}
             />

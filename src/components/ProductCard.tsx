@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 
 export default function ProductCard(props: Product) {
   const { id, title, price, color, image } = props;
-
+  
   // const store = useSelector((store)=> store)
   // console.log(store)
+  // console.log(color)
 
   return (
     <Link
@@ -22,7 +23,11 @@ export default function ProductCard(props: Product) {
         <span className="text-[20px] font-bold leading-[25px] block">
           {title}
         </span>
-        <span className="text-[12px] text-[#383838] mb-[5px]">{color}</span>
+        {color.map((e, index) => (
+          <span key={index} className="text-[12px] text-[#383838] mb-[5px]">
+            {e}
+          </span>
+        ))}
         <div className="flex my-[5px] justify-between items-center">
           <span className="text-[20px] font-bold text-[#428f13]">
             $ {price}
